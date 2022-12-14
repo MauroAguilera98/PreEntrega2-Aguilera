@@ -71,8 +71,15 @@ function modificacionCliente() {
 
 //Funcion para intercambio de saldo entre clientes:
 
+function traspasoDeDinero (cliente, clienteObjetivo, traspaso, saldoDelObjetivo) {
+    if (cliente.saldo >= traspaso) {
+        cliente.saldo = cliente.saldo - traspaso;
+        clienteObjetivo.saldo = clienteObjetivo.saldo + traspaso;
+    }else {
+        alert ("Saldo Insuficiente.");
+    }
+}
 function traspasoEntreClientes () {
-
     let dni = parseInt (prompt("Ingrese el DNI del cliente que realizara el traspaso de dinero: "));
     let cliente = arrayClientes.find(cliente => cliente.dni === dni);
     console.log("hola dami",cliente.nombre);
@@ -84,18 +91,9 @@ function traspasoEntreClientes () {
     let traspaso = parseInt(prompt("ingrese el monto que quiere traspasar: "));    
     let saldoDelObjetivo = clienteObjetivo.saldo
     console.log(clienteObjetivo);
-    let cancelarAceptarTraspaso = menu();
-    switch (cancelarAceptarTraspaso) {
-        case 1:
-            return;
-        case 2:
-            traspasoDeDinero (traspaso, saldoDelObjetivo);
-            break;
-    }
-}
-function traspasoDeDinero (traspaso, saldoDelObjetivo) {
-    let montoFinalDelTraspaso = saldoDelObjetivo + traspaso;
-    console.log (`Resultado final: ${montoFinalDelTraspaso}`)
+    traspasoDeDinero (cliente, clienteObjetivo, traspaso, saldoDelObjetivo);
+    console.log (cliente, clienteObjetivo);
+    alert (`El saldo de ${cliente.nombre} es de ${cliente.saldo} y el de ${clienteObjetivo.nombre} es de ${clienteObjetivo.saldo}`)
 }
 
 //Función para consultar un cliente:
@@ -110,7 +108,7 @@ function consultaCliente() {
 //Función para salir del programa:
 
 function salir() {
-    alert("Gracias por utilizar el Banco CoderJaus");
+    alert("Gracias por utilizar el Banco");
 }
 
 //Ejecuto el el programa:
